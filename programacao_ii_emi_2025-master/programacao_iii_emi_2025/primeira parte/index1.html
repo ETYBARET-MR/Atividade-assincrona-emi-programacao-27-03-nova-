@@ -111,8 +111,17 @@
                 el: '#app', 
                 data: dados,
                 methods: { 
-                    adicionarPatente(){
-                        if(this.)
+                    adicionarPatente: function() {
+                        if (this.novaPatente.codigo && this.novaPatente.descricao) {
+                            this.patentes.push({
+                                codigo: this.novaPatente.codigo,
+                                descricao: this.novaPatente.descricao
+                            });
+                            this.novaPatente.codigo = '';
+                            this.novaPatente.descricao = '';
+                        } else {
+                            alert("Preencha todos os campos para adicionar uma patente.");
+                        }
                     }
                 }
             }); 
