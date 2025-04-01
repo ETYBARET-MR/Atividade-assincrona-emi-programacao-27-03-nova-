@@ -13,89 +13,53 @@
                 <form id="formulario1">
                     <h2>Listagem de Jogadores</h2>
                     <ul>
-                        <li><label>{{jogadores[jogadores.length - 1].nickname}}</label></li>
-                        <li><label>{{jogadores[jogadores.length - 1].qtd_estrela}}</label></li>
-                        <li><label>{{jogadores[jogadores.length - 1].senha}}</label></li>
-                    </ul>  
-                    
-                    
-                    <ul id="example-1">
                         <li v-for="j in jogadores" :key="j.nickname">
                           {{ j.nickname }} {{ j.senha }} {{ j.qtd_estrela }}
                         </li>
                     </ul>
-
-                    <!-- Listar todas as patentes com o v-for-->
-
-                    <ul id="example-2">
-                        <li v-for="j in jogadores" :key="j.nickname">
-
-                            <p v-if="j.qtd_estrela > 10">
-                                {{ j.nickname }} {{ j.senha }} {{ j.qtd_estrela }}
-                            </p>
-                            <p v-else="j.qtd_estrela < 10">
-                                {{ j.nickname }} {{ j.senha }} {{ j.qtd_estrela }}
-                            </p>
-                        </li>
-                    </ul>
                     
+                    <h2>Listagem de Patentes</h2>
                     <ul>
                         <li v-for="patente in patentes" :key="patente.codigo">
                            <span style="font-weight: bold;">{{ patente.codigo }}, {{ patente.descricao }}</span>
                         </li>
                     </ul>
-
-                    <h2>Listagem de Patentes</h2>  
                     
-                    <ul id="patentes-list">
-                        <li v-for="p in patentes" :key="p.codigo">
-                          {{ p.codigo }} - {{ p.descricao }}
-                        </li>
-                    </ul>
-
-                    <h3>Adicionar Patente</h3>
-                    <div>
-                        <label for="codigo">Código:</label>
-                        <input type="text" id="codigo" v-model="novaPatente.codigo">
-
-                        <label for="descricao">Descrição:</label>
-                        <input type="text" id="descricao" v-model="novaPatente.descricao">
-
-                        <button type="button" @click="adicionarPatente">Adicionar Patente</button>
-                    </div>
-
+                    <h2>Adicionar Nova Patente</h2>
+                    <label for="codigo">Código:</label>
+                    <input type="text" id="codigo" v-model="novaPatente.codigo">
+                    <br>
+                    <label for="descricao">Descrição:</label>
+                    <input type="text" id="descricao" v-model="novaPatente.descricao">
+                    <br>
+                    <button type="button" @click="adicionarPatente">Adicionar Patente</button>
+                    
                     <h2>Listagem de Partidas</h2>                       
-
-                        <table border="1">
-                            <tr><td>Codigo</td>
-                                <td>Data</td>
-                                <td>Jogador</td>
-                                <td>Patente</td>
-                                <td>Quantidade de Estrelas</td>
-                            </tr>
-                            <tr v-for="p in partidas" :key="p.codigo">
-
-                               <td> {{p.codigo}} </td>
-                               <td> {{p.data}}</td>
-                               <td> {{p.jogador.nickname}}</td>
-                               <td> {{p.jogador.patente}}</td>
-                               <td> {{p.jogador.qtd_estrela}}</td>
-                            </tr>
-
-                        <h2></h2>
-
-                        </table>
-
+                    <table border="1">
+                        <tr>
+                            <td>Codigo</td>
+                            <td>Data</td>
+                            <td>Jogador</td>
+                            <td>Patente</td>
+                            <td>Quantidade de Estrelas</td>
+                        </tr>
+                        <tr v-for="p in partidas" :key="p.codigo">
+                           <td> {{p.codigo}} </td>
+                           <td> {{p.data}}</td>
+                           <td> {{p.jogador.nickname}}</td>
+                           <td> {{p.jogador.patente}}</td>
+                           <td> {{p.jogador.qtd_estrela}}</td>
+                        </tr>
+                    </table>
                 </form>                
             </div>       
     </body>
 
     <script type="text/javascript">
-   
         $(document).ready(function() {
-
+            
             alert('Chegou aqui !! ');
-        
+
             var dados = { 
                 jogadores:  [ {nickname: 'joaozinho', qtd_estrela: 5, senha: '123', patente: 'Bronze'},    
                               {nickname: 'ze', qtd_estrela: 12, senha: '456', patente: 'Bronze'},
@@ -123,14 +87,14 @@
                                                      senha: '199',
                                                      patente: 'Ouro',}}                    
                             ],
-                    newPatente: { codigo: '', descricao: ''}                             
+                novaPatente: { codigo: '', descricao: '' }             
             };
         
             new Vue({ 
                 el: '#app', 
                 data: dados,
                 methods: { 
-                    adicionarPatente: function() {
+                    adicionarPatente() {
                         if (this.novaPatente.codigo && this.novaPatente.descricao) {
                             this.patentes.push({
                                 codigo: this.novaPatente.codigo,
@@ -138,15 +102,13 @@
                             });
                             this.novaPatente.codigo = '';
                             this.novaPatente.descricao = '';
-                        } else {
-                            alert("Preencha todos os campos para adicionar uma patente.");
+                        }
+                        else{
+                            alert("Por favor preencha todos os campos para adicionar a nova patente");
                         }
                     }
                 }
             }); 
-    
         });
-
     </script> 
-   
- </html>
+</html>
